@@ -12,11 +12,11 @@ class Book
    //public function Book () {...}
    public function __construct($tieude, $giatien, $soluong, $namxuatban, $anhbia)
    {
-      $title = $tieude;
-      $price = $giatien;
-      $quantity = $soluong;
-      $year = $namxuatban;
-      $cover = $anhbia;
+      $this->title = $tieude;
+      $this->price = $giatien;
+      $this->quantity = $soluong;
+      $this->year = $namxuatban;
+      $this->cover = $anhbia;
    }
 
    //getter 
