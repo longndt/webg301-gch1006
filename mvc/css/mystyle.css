@@ -1,0 +1,16 @@
+.gachchan {
+   text-decoration: underline;
+}
+
+.inhoa {
+   text-transform: uppercase;
+}
+
+.innghieng {
+   font-style: italic;
+}
+
+a:hover {
+   font-size: 150%;
+   color: red;
+}

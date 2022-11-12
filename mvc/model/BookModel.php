@@ -7,9 +7,9 @@ class BookModel
    public function viewAllBook()
    {
       //tạo các object của Book bằng constructor
-      $book1 = new Book("Java", 50.68, 25, 2020, "https://m.media-amazon.com/images/I/51EWRgaqIKL.jpg");
-      $book2 = new Book("Python", 68.99, 30, 2021, "https://images-na.ssl-images-amazon.com/images/I/9122eE339dL.jpg");
-      $book3 = new Book("Symfony", 55.23, 45, 2022, "https://m.media-amazon.com/images/I/71g7kbPZetL.jpg");
+      $book1 = new Book("Java", 50.68, 25, 2020, "https://m.media-amazon.com/images/I/51EWRgaqIKL.jpg", "David");
+      $book2 = new Book("Python", 68.99, 30, 2021, "https://images-na.ssl-images-amazon.com/images/I/9122eE339dL.jpg", "Michael");
+      $book3 = new Book("Symfony", 55.23, 45, 2022, "https://m.media-amazon.com/images/I/71g7kbPZetL.jpg", "John");
 
       //tạo array giả lập là dữ liệu của bảng Book trong database
       //index mặc định là số, bắt đầu từ 0
