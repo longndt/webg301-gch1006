@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Laptop index{% endblock %}
+
+{% block body %}
+    <h1>Laptop index</h1>
+
+    <table class="table table-danger">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Date</th>
+                <th>Bestseller</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for laptop in laptops %}
+            <tr>
+                <td>{{ laptop.id }}</td>
+                <td>{{ laptop.name }}</td>
+                <td>
+                <img src="{{ laptop.image }}" width="100" height="100"></td>
+                <td>{{ laptop.date ? laptop.date|date('d/m/Y') : '' }}</td>
+                <td>{{ laptop.bestseller ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_laptop_show', {'id': laptop.id}) }}">show</a>
+                    <a href="{{ path('app_laptop_edit', {'id': laptop.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_laptop_new') }}">Create new</a>
+{% endblock %}

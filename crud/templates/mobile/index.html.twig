@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mobile index{% endblock %}
+
+{% block body %}
+    <div class="container text-center mt-2">
+    <h1>Mobile index</h1>
+
+    <table class="table table-success">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Color</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mobile in mobiles %}
+            <tr>
+                <td>{{ mobile.id }}</td>
+                <td>{{ mobile.name }}</td>
+                <td>{{ mobile.quantity }}</td>
+                <td>{{ mobile.price }}</td>
+                <td>{{ mobile.color }}</td>
+                <td>
+                    <a href="{{ path('app_mobile_show', {'id': mobile.id}) }}">show</a>
+                    <a href="{{ path('app_mobile_edit', {'id': mobile.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-danger" href="{{ path('app_mobile_new') }}">Create new</a>
+    </div>
+{% endblock %}
