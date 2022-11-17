@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('js/script.js')}}"></script>
+        {% endblock %}
+    </head>
+    <body>
+        {% block webtitle %}
+            <h1>MY FIRST SYMFONY WEBSITE</h1>
+        {% endblock %}
+        {% block navigation %}
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>Greenwich</li>
+                    <li>About</li>
+                </ul>
+            </nav>
+        {% endblock %}
+
+        {# khai báo block body và set empty để
+        các file view (twig) có thể ghi đè (override)
+        nội dung #}
+        {% block body %}{% endblock %}
+
+        <p>Project Web - Fall 2022 - Greenwich University</p>
+    </body>
+</html>

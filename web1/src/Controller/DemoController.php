@@ -8,26 +8,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DemoController extends AbstractController
 {
-    // Khai báo route => khai báo đường dẫn URL cho web
-    // để kích hoạt (chạy) function tương ứng bên dưới
-    // URL: 127.0.0.1:8000/greenwich => #[Route('/greenwich')]
-    // URL:  127.0.0.1:8000 (homepage) => #[Route('/')]
-    // name (route name) : chỉ cần khai báo để sử dụng phần path ở trong view (twig)
-    #[Route('/', name: 'home')]
-    //tên function là tùy chọn 
-    //tham số (parameter) là không bắt buộc
-    public function homepage()
+    //Route: Set đường dẫn (URL) cho website
+    //Khi URL khớp với Route thì kích hoạt (chạy) function
+    //tương ứng bên dưới
+    //Route là duy nhất
+    #[Route('/hanoi')]
+    public function hanoi()
     {
-        //render ra web page (view)
-        //thư mục mặc định của view: templates
-        return $this->render("home.html.twig");
+        //render ra view (thư mục chứa view: templates)
+        return $this->render('vietnam/hanoi.html');
     }
 
-    #[Route('/greenwich', name: 'gw')]
-    public function test()
+    //muốn set trang home thì để route là '/'
+    #[Route('/')]
+    public function danang()
     {
-        return $this->render("greenwich/hello.html.twig");
+        return $this->render('vietnam/danang.html');
     }
-
-    
 }
