@@ -7,11 +7,8 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block style %}
         
-            <!-- Bootstrap -->
+         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
-        {# Custom CSS : cần phải để sau link CSS của Bootstrap #}
-        <link rel="stylesheet" href="{{ asset('style.css')}}">
         {% endblock %}
 
     </head>
@@ -19,20 +16,20 @@
         <div class="container text-center col-md-10 mt-3">
         {% block header %}
             <ul class="nav justify-content-center mb-4">
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="{{ path('home') }}">Home</a>
+                <li class="h3 nav-item">
+                    <a class="nav-link" href="{{ path('home') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn btn-success" href="{{ path('hanoi') }}">Hanoi</a>
+                <li class="h3 nav-item">
+                    <a class="nav-link" href="{{ path('hanoi') }}">Hanoi</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="btn btn-info" href="{{ path('hcm') }}">HCM City</a>
+                 <li class="h3 nav-item">
+                    <a class="nav-link" href="{{ path('hcm') }}">HCM City</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="btn btn-secondary" href="{{ path('danang') }}">Da Nang</a>
+                 <li class="h3 nav-item">
+                    <a class="nav-link" href="{{ path('danang') }}">Da Nang</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="btn btn-warning" href="{{ path('cantho') }}">Can Tho</a>
+                 <li class="h3 nav-item">
+                    <a class="nav-link" href="{{ path('cantho') }}">Can Tho</a>
                 </li>
             </ul>
         {% endblock %}
