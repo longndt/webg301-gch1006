@@ -1,0 +1,14 @@
+{# dùng extend để kế thừa file layout (base.html.twig) #}
+
+{% extends "base.html.twig" %}
+
+{# override lên block body của file layout #}
+{% block body %}
+  {# path (twig) được dùng để redirect đến 1 route khác trong controller và route này để kích hoạt 1 function
+   nhằm render ra view khác #}
+   <a href="{{ path('home') }}"><h1>Back to homepage</h1></a>
+   <button onclick="return xoa();">Delete</button>
+   <h3 style="color: red">University of Greenwich</h3>
+   <img src="{{ asset('images/greenwich.jpg') }}" width="200" height="200">
+{% endblock %}
+  

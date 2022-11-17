@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+<h1>Hello everyone</h1>
+   <h2>I am learning Symfony framework</h2>
+   <a href="{{ path('gw') }}">
+      <h3>Greenwich University</h3>
+   </a>
+   <h4>2 Pham Van Bach - Cau Giay - Ha Noi</h4>
+{% endblock %}
+   
