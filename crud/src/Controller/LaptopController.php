@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/laptop')]
 class LaptopController extends AbstractController
 {
+   
+
+
     #[Route('/', name: 'app_laptop_index', methods: ['GET'])]
     public function index(LaptopRepository $laptopRepository): Response
     {
@@ -25,6 +28,7 @@ class LaptopController extends AbstractController
     public function new(Request $request, LaptopRepository $laptopRepository): Response
     {
         $laptop = new Laptop();
+     
         $form = $this->createForm(LaptopType::class, $laptop);
         $form->handleRequest($request);
 
