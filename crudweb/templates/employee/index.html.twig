@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employee index{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4 mb-4 alert alert-danger text-uppercase">Employee List</h1>
+
+    <table class="table table-success">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>Mobile</th>
+                <th>Salary</th>
+                <th>Image</th>
+                <th>Experiencedyear</th>
+                <th>Married</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.birthday ? employee.birthday|date('d/m/Y') : '' }}</td>
+                <td>{{ employee.mobile }}</td>
+                <td>$ {{ employee.salary }}</td>
+                <td><img src="{{ employee.image }}" width="100" height="100"></td>
+                <td>{{ employee.experiencedyear }}</td>
+                <td>{{ employee.married ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employee_new') }}">Create new</a>
+{% endblock %}
