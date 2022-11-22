@@ -80,10 +80,11 @@ class BlogController extends AbstractController
     {
         $blog = $this->blogRepository->find($id);
         if ($blog == null) {
+              //trả về response cho client với thông báo
             $error = "<center><h1 style='color: red;'><i><u>Blog is not existed !</u></i></h1></center>";
             return new Response(
                 $error,
-                Response::HTTP_BAD_REQUEST,
+                Response::HTTP_BAD_REQUEST, //code: 400
                 [
                     'content-type' => 'text/html'
                 ]
@@ -95,10 +96,11 @@ class BlogController extends AbstractController
             $manager->remove($blog);
             //confirm thao tác xóa
             $manager->flush();
-            $info = "<center><h1 style='color: red;'><i><u>Blog has been deleted !</u></i></h1></center>";
+            //trả về response cho client với thông báo
+            $info = "<center><h1 style='color: blue;'><i><u>Blog has been deleted !</u></i></h1></center>";
             return new Response(
                 $info,
-                Response::HTTP_ACCEPTED,
+                Response::HTTP_ACCEPTED, //code: 202
                 [
                     'content-type' => 'text/html'
                 ]
