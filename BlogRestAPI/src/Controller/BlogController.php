@@ -4,18 +4,24 @@ namespace App\Controller;
 
 use App\Entity\Blog;
 use App\Repository\BlogRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
+    private $serializer;
+    private $registry;
+    public function __construct(SerializerInterface $serializer, ManagerRegistry $managerRegistry)
+    {
+        $this->serializer = $serializer;
+        $this->registry = $managerRegistry;
+    }
 
-
-
-    #[Route('/', methods: 'GET', name: 'view_all_blog_api')]
-    public function viewAllBlog(BlogRepository $blogRepository, SerializerInterface $serializer)
+    #[Route('/', methods: ['GET'], name: 'view_all_blog_api')]
+    public function viewAllBlog(BlogRepository $blogRepository)
     {
         //1) lấy dữ liệu từ DB và lưu vào array
         //SQL query tương ứng: "SELECT * FROM Blog"
@@ -26,14 +32,77 @@ class BlogController extends AbstractController
 
         // 2) chuyển đổi array thành api (json hoặc xml)
         //$api = $serializer->serialize($blogs, 'xml');
-        $api = $serializer->serialize($blogs, 'json');
+        $api = $this->serializer->serialize($blogs, 'json');
 
         //3) trả về api cho front-end
-        return new Response($api,200,
+        return new Response(
+            $api,
+            200,
             [
                 'content-type' => 'application/json'
             ]
         );
         //Note: 200 => Response::HTTP_OK
+    }
+
+    #[Route('/{id}', methods: ['GET'], name: 'view_blog_by_id')]
+    public function viewBlogById($id, BlogRepository $blogRepository)
+    {
+        //SQL: SELECT * FROM Blog WHERE id = '$id'
+        $blog = $blogRepository->find($id);
+        //check if blog is null return status code: 404 - Not Found
+        if ($blog == null) {
+            $error = "<center><h1 style='color: red;'><i><u>Blog not found !</u></i></h1></center>";
+            return new Response(
+                $error,
+                Response::HTTP_NOT_FOUND,
+                [
+                    'content-type' => 'text/html'
+                ]
+            );
+        }
+
+        $api = $this->serializer->serialize($blog, 'xml');
+        return new Response(
+            $api,
+            Response::HTTP_OK,
+            [
+                'content-type' => 'application/xml',
+                // 'IDE' => 'VS Code',
+                // 'Purpose' => 'View Blog By Id'
+            ]
+        );
+    }
+
+    #[Route('/{id}', methods: 'DELETE', name: 'delete_blog')]
+    //SQL: DELETE FROM Blog WHERE id = '$id'
+    public function deleteBlog($id, BlogRepository $blogRepository)
+    {
+        $blog = $blogRepository->find($id);
+        if ($blog == null) {
+            $error = "<center><h1 style='color: red;'><i><u>Blog is not existed !</u></i></h1></center>";
+            return new Response(
+                $error,
+                Response::HTTP_BAD_REQUEST,
+                [
+                    'content-type' => 'text/html'
+                ]
+            );
+        } else {
+            //khởi tạo biến để gọi đến Entity Manager
+            $manager = $this->registry->getManager();
+            //xóa record ($blog) khỏi table (entity)
+            $manager->remove($blog);
+            //confirm thao tác xóa
+            $manager->flush();
+            $info = "<center><h1 style='color: red;'><i><u>Blog has been deleted !</u></i></h1></center>";
+            return new Response(
+                $info,
+                Response::HTTP_ACCEPTED,
+                [
+                    'content-type' => 'text/html'
+                ]
+            );
+        }
     }
 }
