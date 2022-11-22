@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
@@ -74,13 +75,13 @@ class BlogController extends AbstractController
         );
     }
 
-    #[Route('/{id}', methods: 'DELETE', name: 'delete_blog')]
     //SQL: DELETE FROM Blog WHERE id = '$id'
+    #[Route('/{id}', methods: 'DELETE', name: 'delete_blog')]
     public function deleteBlog($id)
     {
         $blog = $this->blogRepository->find($id);
         if ($blog == null) {
-              //trả về response cho client với thông báo
+            //trả về response cho client với thông báo
             $error = "<center><h1 style='color: red;'><i><u>Blog is not existed !</u></i></h1></center>";
             return new Response(
                 $error,
@@ -106,5 +107,50 @@ class BlogController extends AbstractController
                 ]
             );
         }
+    }
+
+    //SQL: INSERT INTO Blog (title, author, content, date) VALUES(.....) 
+    #[Route('/', methods: 'POST', name: 'add_new_blog')]
+    public function addBlog(Request $request)
+    {
+        //tạo mới object Blog
+        $blog = new Blog;
+        //lấy dữ liệu từ Request của client theo format của json
+        $json = $request->getContent();
+        $data = json_decode($request->getContent(), true);
+        //set giá trị cho từng thuộc tính (dữ liệu của từng cột)
+        $blog->setTitle($data['title']);
+        $blog->setAuthor($data['author']);
+        $blog->setContent($data['content']);
+        $blog->setDate(\DateTime::createFromFormat('Y-m-d', $data['date']));
+        //khai báo Entity Manager
+        $manager = $this->registry->getManager();
+        //add dữ liệu vào DB
+        $manager->persist($blog);
+        $manager->flush();
+        //trả về response
+        //C1: trả về 1 message
+        // $success = "<center><h1 style='color: blue;'><i><u>Add new blog succeed !</u></i></h1></center>";
+        // return new Response(
+        //     $success,
+        //     Response::HTTP_CREATED, //201
+        //     [
+        //         'content-type' => 'text/html'
+        //     ]
+        // );
+        //C2: trả về giá trị của $json
+        return new Response(
+            $json,
+            201,
+            [
+                'content-type' => 'application/json'
+            ]
+        );
+    }
+
+    //SQL: UPDATE Blog SET title = ..., .... WHERE id = '$id'
+    #[Route('/{id}', methods: 'PUT', name: 'update_blog')]
+    public function editBlog($id, Request $request)
+    {
     }
 }
