@@ -1,0 +1,44 @@
+{% set hello = "Hello Greenwich" %}
+{% set year = 2022 %}
+<h1>{{ hello }}</h1>
+<h2>We are living in {{ year }}</h2>
+{% set a = 3 %}
+{% set b = 5 %}
+{% set c = a+b %}
+<h3>{{ a }} + {{ b }} = {{ a+b }}</h3>
+{% if a>=b %}
+    <h5>a is greater than or equal to b</h5>
+{% else %}
+    <h5>a is smaller than b</h5>
+{% endif %}
+{% set x1 = 5 %}
+{% set x2 = 6 %}
+{% set x3 = 7 %}
+{% if x1>=x2 and x1>=x3 %}
+    <h2>{{x1}} is largest</h2>
+{% elseif x2>=x1 and x2>=x3 %}
+    <h2>{{x2}} is largest</h2> 
+{% else %}
+    <h2>{{x3}} is largest</h2> 
+{% endif %}
+<h3>Smallest number : {{ min(x1,x2,x3) }} </h3>
+{# for ($i=1; $i<=10; $i++) {
+    echo $i . "<br>";
+} #}
+{% for i in 1..10  %}
+    {{ i }}
+{% endfor %}
+<br>
+{% for i in 1..10  %}
+    {% if i%2==0 %}
+      {{ i }}
+    {% endif %}
+  
+{% endfor %}
+<br>
+{% for i in range (1, 10, 3)  %}
+    {{ i }}
+{% endfor %}
+
+
+ 
