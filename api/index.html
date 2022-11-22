@@ -1,0 +1,35 @@
+<div class="container col-md-10 text-center mt-5">
+   <h1 class="text text-secondary">Fetch API from front-end with HTML + Javascript</h1>
+   {{!-- api data will be displayed here --}}
+</div>
+
+<script>
+   let url = "https://127.0.0.1:8000"
+   fetch(url)
+      .then(response => response.json())
+      .then(data => renderTable(data))
+
+   function renderTable(data) {
+      var table = `<table class="table table-bordered">
+                  <tr>
+                      <th colspan="5" class="h2 text-primary">Blog List</th>
+                  </tr>
+                  <tr class="h6 text-success">
+                      <th>Blog id</th>
+                      <th>Blog title</th>
+                      <th>Blog author</th>
+                      <th>Blog content</th>
+                  </tr>`;
+      data.forEach((blog) => {
+         table += `<tr>
+                    <td>${blog.id}</td>
+                    <td>${blog.title}</td>
+                    <td>${blog.author} </td>
+                    <td>${blog.content}  </td>
+                </tr>`;
+      });
+
+      table += `</table>`;
+      document.querySelector(".container").innerHTML = table;
+   }
+</script>

@@ -116,7 +116,6 @@ class BlogController extends AbstractController
         //tạo mới object Blog
         $blog = new Blog;
         //lấy dữ liệu từ Request của client theo format của json
-        $json = $request->getContent();
         $data = json_decode($request->getContent(), true);
         //set giá trị cho từng thuộc tính (dữ liệu của từng cột)
         $blog->setTitle($data['title']);
@@ -130,20 +129,12 @@ class BlogController extends AbstractController
         $manager->flush();
         //trả về response
         //C1: trả về 1 message
-        // $success = "<center><h1 style='color: blue;'><i><u>Add new blog succeed !</u></i></h1></center>";
-        // return new Response(
-        //     $success,
-        //     Response::HTTP_CREATED, //201
-        //     [
-        //         'content-type' => 'text/html'
-        //     ]
-        // );
-        //C2: trả về giá trị của $json
+        $success = "<center><h1 style='color: blue;'><i><u>Add new blog succeed !</u></i></h1></center>";
         return new Response(
-            $json,
-            201,
+            $success,
+            Response::HTTP_CREATED, //201
             [
-                'content-type' => 'application/json'
+                'content-type' => 'text/html'
             ]
         );
     }
@@ -152,5 +143,40 @@ class BlogController extends AbstractController
     #[Route('/{id}', methods: 'PUT', name: 'update_blog')]
     public function editBlog($id, Request $request)
     {
+        //lấy dữ liệu của Blog theo id từ database
+        $blog = $this->blogRepository->find($id);
+        if ($blog == null) {
+            //trả về response cho client với thông báo
+            $error = "<center><h1 style='color: red;'><i><u>Blog is not existed !</u></i></h1></center>";
+            return new Response(
+                $error,
+                Response::HTTP_BAD_REQUEST, //code: 400
+                [
+                    'content-type' => 'text/html'
+                ]
+            );
+        } 
+        //lấy dữ liệu từ Request của client theo format của json
+        $json = $request->getContent();
+        $data = json_decode($request->getContent(), true);
+        //set giá trị cho từng thuộc tính (dữ liệu của từng cột)
+        $blog->setTitle($data['title']);
+        $blog->setAuthor($data['author']);
+        $blog->setContent($data['content']);
+        $blog->setDate(\DateTime::createFromFormat('Y-m-d', $data['date']));
+        //khai báo Entity Manager
+        $manager = $this->registry->getManager();
+        //add dữ liệu vào DB
+        $manager->persist($blog);
+        $manager->flush();
+        //trả về response
+        // C2: trả về giá trị của $json
+        return new Response(
+            $json,
+            201,
+            [
+                'content-type' => 'application/json'
+            ]
+        );
     }
 }
