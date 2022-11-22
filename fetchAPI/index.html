@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Fetch API with HTML + Javascript</title>
+   <!-- CSS only -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+   <div class="container col-md-10 text-center mt-5">
+      <script>
+         let url = "https://127.0.0.1:8000"
+         fetch(url)
+            .then(response => response.json())
+            .then(data => renderTable(data))
+
+         function renderTable(data) {
+            var table = `<table class="table table-bordered">
+                                          <tr>
+                                              <th colspan="5" class="h2 text-primary">Blog List</th>
+                                          </tr>
+                                          <tr class="h6 text-success">
+                                              <th>Blog id</th>
+                                              <th>Blog title</th>
+                                              <th>Blog author</th>
+                                              <th>Blog content</th>
+                                          </tr>`;
+            data.forEach((blog) => {
+               table += `<tr>
+                                            <td>${blog.id}</td>
+                                            <td>${blog.title}</td>
+                                            <td>${blog.author} </td>
+                                            <td>${blog.content}  </td>
+                                        </tr>`;
+            });
+
+            table += `</table>`;
+            document.querySelector(".container").innerHTML = table;
+         }
+      </script>
+   </div>
+</body>
+
+</html>

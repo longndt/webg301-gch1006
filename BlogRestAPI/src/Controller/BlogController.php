@@ -40,7 +40,8 @@ class BlogController extends AbstractController
             $api,
             200,
             [
-                'content-type' => 'application/json'
+                'content-type' => 'application/json',
+                'Access-Control-Allow-Origin' => '*'
             ]
         );
         //Note: 200 => Response::HTTP_OK
