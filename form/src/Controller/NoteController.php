@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Note;
-use App\Repository\NoteRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class NoteController extends AbstractController
 {
     #[Route('/addnote', name: 'add_note')]
-    public function addNote(ManagerRegistry $managerRegistry)
+    public function addNote()
     {
         $note = new Note;
         $form = $this->createFormBuilder($note)
