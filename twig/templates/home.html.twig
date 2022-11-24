@@ -1,6 +1,22 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+	<table class="table table-bordered">
+		<tr>
+			<th>Number</th>
+			<th>Name</th>
+		</tr>
+		{% set i = 1 %}
+		{% for student in student_list %}
+			<tr>
+				<td>{{ i }}</td>
+				<td>{{ student }}</td>
+			</tr>
+			{% set i = i+1 %}
+		{% endfor %}
+	</table>
+	<h1>Total students: {{ student_list | length }}</h1>
+
 	<h1>Current year:
 		{{ namhientai }}</h1>
 	<h2>We are living in
@@ -12,8 +28,10 @@
 	{% else %}
 		<h4>You are Female</h4>
 	{% endif %}
-   <h5>Passed: {{ pass }}</h5>
-   {# Note: boolean value sẽ hiển thị là 1 (true) 
-   hoặc empty (false)  #}
-   <h6>Date Time: {{ datetime | date('d/m/Y H:i:s') }}</h6>
+	<h5>Passed:
+		{{ pass }}</h5>
+	{# Note: boolean value sẽ hiển thị là 1 (true) 
+					   hoặc empty (false)  #}
+	<h6>Date Time:
+		{{ datetime | date('d/m/Y H:i:s') }}</h6>
 {% endblock %}

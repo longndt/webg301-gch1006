@@ -29,6 +29,7 @@ class DemoController extends AbstractController
         $year = 2022;
         $country = "Vietnam";
         $datetime = DateTime::createFromFormat('d/m/Y H:i:s', '24/11/2022 09:09:45');
+        $students = ['Minh', 'Nam', 'Huong', 'Linh', 'Tuan', 'Phong', 'Hung'];
         return $this->render(
             'home.html.twig',
             [
@@ -37,7 +38,8 @@ class DemoController extends AbstractController
                 'grade' => 7.5,  //float
                 'gender' => 'F',  //character
                 'pass' => false, //boolean
-                'datetime' => $datetime //datetime
+                'datetime' => $datetime, //datetime
+                'student_list' => $students //array
             ]
         );
     }
