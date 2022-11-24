@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<h1>Current year:
+		{{ namhientai }}</h1>
+	<h2>We are living in
+		{{ country }}</h2>
+	<h3>Grade:
+		{{ grade }}</h3>
+	{% if gender == 'M' %}
+		<h4>You are Male</h4>
+	{% else %}
+		<h4>You are Female</h4>
+	{% endif %}
+   <h5>Passed: {{ pass }}</h5>
+   {# Note: boolean value sẽ hiển thị là 1 (true) 
+   hoặc empty (false)  #}
+   <h6>Date Time: {{ datetime | date('d/m/Y H:i:s') }}</h6>
+{% endblock %}
