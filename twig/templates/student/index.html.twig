@@ -8,18 +8,27 @@
 				<th>Họ tên</th>
 				<th>Ngày sinh</th>
 				<th>Điểm GPA</th>
+				<th>Giới tính</th>
 				<th>Avatar</th>
 			</tr>
-			<tr>
-				<td>{{ student.id }}</td>
-				<td>{{ student.name }}</td>
-				<td>{{ student.dob | date('d-m-Y') }}</td>
-				<td>
-					{{student.grade }}</td>
-				<td>
-					<img src="{{ asset ('students/'~student.image) }}" width="100" height="100">
-				</td>
-			</tr>
+			{% for student in students %}
+				<tr>
+					<td>{{ student.id }}</td>
+					<td>{{ student.name }}</td>
+					<td>{{ student.dob | date('d-m-Y') }}</td>
+					<td>{{ student.grade }}</td>
+					<td>
+						{% if student.gender == 'M' %}
+							Nam
+						{% else %}
+							Nữ
+						{% endif %}
+					</td>
+					<td>
+						<img src="{{ asset ('students/'~student.image) }}" width="100" height="100">
+					</td>
+				</tr>
+			{% endfor %}
 		</table>
 	</div>
 {% endblock %}

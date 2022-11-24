@@ -26,6 +26,9 @@ class Student
     #[ORM\Column]
     private ?float $grade = null;
 
+    #[ORM\Column(length: 1)]
+    private ?string $gender = null;
+
     public function setId(int $id): self
     {
         $this->id = $id;
@@ -82,6 +85,18 @@ class Student
     public function setGrade(float $grade): self
     {
         $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }
