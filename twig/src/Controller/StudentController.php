@@ -14,6 +14,7 @@ class StudentController extends AbstractController
     public function index() 
     {
         $student1 = new Student;
+        $student1->setId(1);
         $student1->setName("Nguyen Tuan Minh");
         $student1->setDob(DateTime::createFromFormat('d/m/Y', '10/05/2022'));
         $student1->setGrade(8.5);

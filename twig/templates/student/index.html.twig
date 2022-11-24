@@ -4,19 +4,20 @@
 	<div class="container text-center">
 		<table class="table table-primary mt-3">
 			<tr>
+				<th>Id</th>
 				<th>Họ tên</th>
 				<th>Ngày sinh</th>
 				<th>Điểm GPA</th>
 				<th>Avatar</th>
 			</tr>
 			<tr>
+				<td>{{ student.id }}</td>
 				<td>{{ student.name }}</td>
 				<td>{{ student.dob | date('d-m-Y') }}</td>
 				<td>
 					{{student.grade }}</td>
 				<td>
-					<img src="{{ asset ('students/'~student.image) }}" 
-                    width="100" height="100">
+					<img src="{{ asset ('students/'~student.image) }}" width="100" height="100">
 				</td>
 			</tr>
 		</table>
