@@ -1,1 +1,7 @@
-{{  title }}
+<h1>Title: {{ note.title }}</h1>
+<h1>Content: {{ note.content }}</h1>
+<h1>Deadline: {{ note.deadline | date('d/m/Y')}}</h1>
+<h1>Category: {{ note.category }}</h1>
+<h1>Quantity: {{ note.quantity }}</h1>
+<h1>Money: $ {{ note.money }}</h1>
+
