@@ -28,7 +28,11 @@ class NoteType extends AbstractType
                 [
                     //'required' => true,  //nullable == false
                     'required' => false,  //nullable == true
-                    'label' => 'Tiêu đề'
+                    'label' => 'Tiêu đề',
+                    'attr' => [
+                        'minlength' => 5,
+                        'maxlength' => 50
+                    ]
                 ]
             )
             ->add('content')
@@ -43,7 +47,13 @@ class NoteType extends AbstractType
                     'widget' => 'single_text'  //input type="date" (HTML)
                 ]
             )
-            ->add('quantity', IntegerType::class)
+            ->add('quantity', IntegerType::class,
+            [
+                'attr' => [
+                    'min' => 1,
+                    'max' => 10
+                ]
+            ])
             ->add('money', MoneyType::class,
             [
                 'currency' => 'USD'
