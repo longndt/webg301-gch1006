@@ -2,14 +2,26 @@
 
 {% block body %}
 	<div class="container col-md-6 text-center mt-3 mb-3">
-		<table class="table table-bordered">
+
+		{# nhận thông báo (flash) từ controller #}
+		<div class="container-fluid">
+			{% for message in app.session.flashBag.get('Success')%}
+				<span class="alert alert-success mt-3 mb-3">{{ message }}</span>
+			{% endfor %}
+			{% for message in app.session.flashBag.get('Error')%}
+				<span class="alert alert-danger mt-3 mb-3">{{ message }}</span>
+			{% endfor %}
+		</div>
+
+		{# tạo bảng để hiển thị dữ liệu từ database #}
+		<table class="table table-bordered mt-4">
 			<tr class="bg-warning">
 				<th colspan="3" class="h3 text text-danger">Todo List</th>
 				<th>
-					<a href="#" class="btn btn-primary">Add</a>
+					<a href="{{ path('todo_add') }}" class="btn btn-primary">Add</a>
 				</th>
 			</tr>
-			<tr class="text text-danger">
+			<tr class="text text-secondary">
 				<th>Id</th>
 				<th>Title</th>
 				<th>Deadline</th>
@@ -21,9 +33,9 @@
 					<td>{{ todo.name }}</td>
 					<td>{{ todo.duedate | date('d/m/Y') }}</td>
 					<td>
-						<a href="#" class="btn btn-info">View</a>
-						<a href="#" class="btn btn-warning">Edit</a>
-						<a href="#" class="btn btn-danger" onclick="return confirm('Are you sure to delete this todo ?');">Delete</a>
+						<a href="{{ path('todo_detail', {'id' : todo.id }) }}" class="btn btn-info">View</a>
+						<a href="{{ path('todo_edit', {'id' : todo.id }) }}" class="btn btn-warning">Edit</a>
+						<a href="{{ path('todo_delete', {'id' : todo.id }) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this todo ?');">Delete</a>
 					</td>
 				</tr>
 			{% endfor %}
