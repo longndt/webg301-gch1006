@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<table border="1">
+		<tr>
+			<th>Category Id</th>
+			<th>Category Name</th>
+			<th>Movie Image</th>
+		</tr>
+		{% for category in categories %}
+			<tr>
+				<td>{{ category.id }}</td>
+				<td>{{ category.name }}</td>
+				<td>
+					{% for movie in category.movies %}
+						<img src="{{ movie.image }}" width="100" height="100">
+                        <br>
+					{% endfor %}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

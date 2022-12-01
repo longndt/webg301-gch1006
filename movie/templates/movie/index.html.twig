@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<table border="1">
+		<tr>
+			<th>Movie Id</th>
+			<th>Movie Name</th>
+			<th>Movie Image</th>
+			<th>Movie Category</th>
+			<th>Movie Actor(s)</th>
+		</tr>
+		{% for movie in movies %}
+			<tr>
+				<td>{{ movie.id }}</td>
+                <td>{{ movie.name }}</td>
+				<td><img src="{{ movie.image }}" width="100" height="100"></td>
+				<td><img src="{{ movie.category.image }}" width="100" height="100"></td>
+				<td>
+					{% for actor in movie.actors %}
+						<img src="{{ actor.image }}" width="100" height="100">
+					{% endfor %}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
