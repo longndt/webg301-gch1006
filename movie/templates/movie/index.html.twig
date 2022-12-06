@@ -1,24 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<table border="1">
+	<table class="table table-success text-center">
+		<tr>
+			<th colspan="5">Movie List</th>
+			<th>
+				<h1>
+					<a class="btn btn-primary" href="#">CREATE</a>
+				</h1>
+			</th>
+		</tr>
 		<tr>
 			<th>Movie Id</th>
 			<th>Movie Name</th>
 			<th>Movie Image</th>
 			<th>Movie Category</th>
 			<th>Movie Actor(s)</th>
+			<th>Actions</th>
 		</tr>
 		{% for movie in movies %}
 			<tr>
 				<td>{{ movie.id }}</td>
-                <td>{{ movie.name }}</td>
-				<td><img src="{{ movie.image }}" width="100" height="100"></td>
-				<td><img src="{{ movie.category.image }}" width="100" height="100"></td>
+				<td>{{ movie.name }}</td>
+				<td>
+					<a href="http://">
+						<img src="{{ movie.image }}" width="100" height="100">
+					</a>
+				</td>
+				<td>
+					<a href="{{ path('category_detail',{'id': movie.category.id})}}">
+						{{ movie.category.name }}
+					</a>
+				</td>
 				<td>
 					{% for actor in movie.actors %}
-						<img src="{{ actor.image }}" width="100" height="100">
+						{{ actor.name }}
+						<br>
 					{% endfor %}
+				</td>
+				<td>
+					<a class="btn btn-warning" href="http://">UPDATE</a>
+					<a class="btn btn-danger" href="http://">REMOVE</a>
 				</td>
 			</tr>
 		{% endfor %}

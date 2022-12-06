@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container col-md-8">
+		<div class="row">
+			<div class="col">
+				<img class="img-thumbnail" src="{{ category.image }}" width="400" height="400">
+			</div>
+			<div class="col">
+				<table class="table table-bordered">
+					<tr>
+						<th class="alert alert-primary" colspan="2">{{ category.name }}</th>
+					</tr>
+					{% if category.movies | length == 0 %}
+						<h1 class="text text-danger">No movies yet !</h1>
+					{% else %}
+						{% for movie in category.movies %}
+							<tr>
+								<th>{{ movie.name }}</th>
+								<th>
+									<img src="{{ movie.image }}" width="150" height="150">
+								</th>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

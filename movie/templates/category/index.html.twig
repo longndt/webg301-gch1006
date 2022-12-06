@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<table border="1">
+	<table class="table table-info">
 		<tr>
 			<th>Category Id</th>
 			<th>Category Name</th>
-			<th>Movie Image</th>
+			<th>Category Image</th>
+			<th>Menu</th>
 		</tr>
 		{% for category in categories %}
 			<tr>
 				<td>{{ category.id }}</td>
 				<td>{{ category.name }}</td>
 				<td>
-					{% for movie in category.movies %}
-						<img src="{{ movie.image }}" width="100" height="100">
-                        <br>
-					{% endfor %}
+					<a href="{{ path('category_detail', {'id': category.id })}}">
+						<img src="{{ category.image }}" width="100" height="100">
+					</a>
+				</td>
+				<td>
+					<a class="btn btn-danger" href="{{ path('category_delete', {'id' : category.id })}}" onclick="return confirm('Do you want to delete this category ?');">DELETE</a>
 				</td>
 			</tr>
 		{% endfor %}
