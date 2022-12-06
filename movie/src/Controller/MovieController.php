@@ -16,17 +16,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MovieController extends AbstractController
 {
     #[Route('/', name: 'movie_index')]
-    public function index(MovieRepository $movieRepository) 
+    public function index(MovieRepository $movieRepository)
     {
-        $movies = $movieRepository->findAll();
-        return $this->render('movie/index.html.twig', 
-        [
-            'movies' => $movies
-        ]);
+        $movies = $movieRepository->sortMovieByIdDesc();
+        return $this->render(
+            'movie/index.html.twig',
+            [
+                'movies' => $movies
+            ]
+        );
     }
 
     #[Route('/add', name: 'movie_add')]
-    public function add(Request $request, ManagerRegistry $managerRegistry) {
+    public function add(Request $request, ManagerRegistry $managerRegistry)
+    {
         $movie = new Movie;
         $form = $this->createForm(MovieType::class, $movie);
         $form->add('Add', SubmitType::class);
@@ -38,10 +41,48 @@ class MovieController extends AbstractController
             $this->addFlash('Info', 'Add movie succeed !');
             return $this->redirectToRoute('movie_index');
         }
-        return $this->renderForm('movie/add.html.twig',
-        [
-            'movieForm' => $form
-        ]);
+        return $this->renderForm(
+            'movie/add.html.twig',
+            [
+                'movieForm' => $form
+            ]
+        );
     }
 
+    #[Route('/asc', name: 'sort_movie_name_asc')]
+    public function sortNameAsc(MovieRepository $movieRepository)
+    {
+        $movies = $movieRepository->sortMovieNameAsc();
+        return $this->render(
+            'movie/index.html.twig',
+            [
+                'movies' => $movies
+            ]
+        );
+    }
+
+    #[Route('/desc', name: 'sort_movie_name_desc')]
+    public function sortNameDesc(MovieRepository $movieRepository)
+    {
+        $movies = $movieRepository->sortMovieNameDesc();
+        return $this->render(
+            'movie/index.html.twig',
+            [
+                'movies' => $movies
+            ]
+        );
+    }
+
+    #[Route('/search', name: 'search_movie')]
+    public function searchMovie(Request $request, MovieRepository $movieRepository)
+    {
+        $name = $request->get('keyword');
+        $movies = $movieRepository->searchMovie($name);
+        return $this->render(
+            'movie/index.html.twig',
+            [
+                'movies' => $movies
+            ]
+        );
+    }
 }

@@ -39,28 +39,41 @@ class MovieRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Movie[] Returns an array of Movie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Movie[]  
+     */
+    public function sortMovieByIdDesc()
+    {
+        //SQL: SELECT * FROM movie ORDER BY id DESC
+        return $this->createQueryBuilder('movie')
+            ->orderBy('movie.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Movie
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function sortMovieNameAsc()
+    {
+        return $this->createQueryBuilder('movie')
+            ->orderBy('movie.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function sortMovieNameDesc()
+    {
+        return $this->createQueryBuilder('movie')
+            ->orderBy('movie.name', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function searchMovie($name) 
+    {
+        return $this->createQueryBuilder('movie')
+            ->andWhere('movie.name LIKE :n')
+            ->setParameter('n', '%' . $name . '%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

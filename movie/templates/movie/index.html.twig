@@ -3,16 +3,37 @@
 {% block body %}
 	<table class="table table-success text-center">
 		<tr>
-			<th colspan="5">Movie List</th>
+			<th colspan="5">MOVIE LIST ({{ movies | length }})</th>
 			<th>
 				<h1>
-					<a class="btn btn-primary" href="#">CREATE</a>
+					<a class="btn btn-primary" href="{{ path('movie_add')}}">CREATE</a>
 				</h1>
 			</th>
 		</tr>
 		<tr>
+			<th colspan="3">
+				Sort by name:
+				<select class="form-control" onchange="window.location.href = this.value">
+					<option>Select one</option>
+					<option value="{{ path('sort_movie_name_asc')}}">Ascending</option>
+					<option value="{{ path('sort_movie_name_desc')}}">Descending</option>
+				</select>
+			</th>
+			<th colspan="3">
+				Search by name:
+				<form class="form-group" action="{{ path('search_movie')}}" method="post">
+					<input class="form-control" type="search" name="keyword">
+				</form>
+			</th>
+		</tr>
+		<tr>
 			<th>Movie Id</th>
-			<th>Movie Name</th>
+			<th>
+				<a href="{{ path('sort_movie_name_asc')}}">
+					<img src="{{ asset('icons/up.png')}}" width="30" height="30"></a>
+				Movie Name
+				<a href="{{ path('sort_movie_name_desc')}}"><img src="{{ asset('icons/down.png')}}" width="30" height="30"></a>
+			</th>
 			<th>Movie Image</th>
 			<th>Movie Category</th>
 			<th>Movie Actor(s)</th>
