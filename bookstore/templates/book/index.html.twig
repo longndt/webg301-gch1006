@@ -1,0 +1,47 @@
+{# thiết kế giao diện của admin theo dạng bảng #}
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container col-md-8 text-center mt-3">
+		<table class="table table-light">
+			<tr>
+				<th colspan="3">
+					<h1 class="text text-primary">Book List</h1>
+				</th>
+				<th>
+					<a class="text-decoration-none" href="{{ path('book_add') }}">
+						<img src="{{ asset('images/buttons/add.png') }}" width="40" height="40">
+					</a>
+				</th>
+			</tr>
+			<tr>
+				<th class="text text-success">Book Id</th>
+				<th class="text text-success">Book Title</th>
+				<th class="text text-success">Book Cover</th>
+				<th class="text text-success">Actions</th>
+			</tr>
+			{% for book in books %}
+				<tr>
+					<td>{{ book.id }}</td>
+					<td>{{ book.title }}</td>
+					<td>
+						<a href="{{ path('book_detail', {'id' : book.id }) }}">
+							<img src="{{ asset('images/books/'~book.image)}}" width="100" height="120">
+						</a>
+					</td>
+					<td>
+						<a class="text-decoration-none" href="{{ path('book_detail', {'id' : book.id }) }}">
+							<img src="{{ asset('images/buttons/detail.png') }}" width="40" height="40">
+						</a>
+						<a class="text-decoration-none" href="{{ path('book_edit', {'id' : book.id }) }}">
+							<img src="{{ asset('images/buttons/edit.png') }}" width="40" height="40">
+						</a>
+						<a class="text-decoration-none" href="{{ path('book_delete', {'id' : book.id }) }}" onclick="return confirm('Are you sure to delete this book ?');">
+							<img src="{{ asset('images/buttons/delete.png') }}" width="40" height="40">
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

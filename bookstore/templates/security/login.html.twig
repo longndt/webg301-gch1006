@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    User Login
+{% endblock %}
+
+{# override header (navigation) #}
+{% block header %} {% endblock %}
+
+{% block body %}
+<div class="container col-md-6 card p-3 bg-light">
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <div class="text-center mt-3">
+        <h1 class="h3 mb-3 font-weight-normal text-primary">User Login</h1>
+    </div>
+    <div class="card p-2 bg-white">
+    <label for="inputUsername">Username</label>
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+    </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-lg btn-primary" type="submit">
+            Sign in
+        </button>
+        <br>
+        <a class="h4 text-danger text-decoration-none mt-3" href="{{ path('app_register') }}">Register new account</a>
+    </div>
+
+</form>
+</div>
+{% endblock %}
+
+{# override footer (copyright) #}
+{% block footer %} {% endblock %}

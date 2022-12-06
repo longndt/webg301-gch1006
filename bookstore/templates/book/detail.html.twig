@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-8 text-center mt-3">
+   <div class="row">
+      <div class="col-4">
+         <div class="card">
+            <img src="{{ asset('images/books/'~book.image)}}" width="300" height="300">
+         </div>
+      </div>
+      <div class="col-6">
+         <table class="table table-bordered">
+            <tr>
+               <th colspan="2" class="bg-light">
+                  <h2 class="text-danger">{{ book.title }} </h2>
+               </th>
+            </tr>
+            <tr class="h4">
+               <th>Published Date</th>
+               <td>{{ book.date | date('d/m/Y')}}</td>
+            </tr>
+            <tr class="h4">
+               <th>Book Price</th>
+               <td>${{ book.price }} </td>
+            </tr>
+            <tr class="h4">
+            {% if book.quantity >= 1 %}
+               <th>Book Quantity</th>
+               <td>{{ book.quantity }}</td>
+            {% else %}
+               <th>Book Quantity</th>
+               <td>Out of stock</td>
+            {% endif %}           
+            </tr>
+            <tr class="h4">
+               <th>Genre</th>
+               <td>
+               {% if book.genre != null %}
+                  <a class="text-decoration-none" href="{{ path('genre_detail', {'id' : book.genre.id })}}">
+                     {{ book.genre.name }}
+                  </a>    
+               {% else %}
+                     <i>N/A</i>
+               {% endif %}
+             </td>
+            </tr>
+            <tr class="h4">
+               <th>Author(s)</th>
+               <td>
+               {% if book.authors == null %}
+                  <i>Undefined</i>
+               {% else %}
+                  {% for author in book.authors %}
+                    <a class="text-decoration-none" href="{{ path('author_detail', {'id' : author.id })}}">
+                     {{ author.name }} 
+                    </a>
+                     <br>
+                  {% endfor %}
+               {% endif %}
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
+{% endblock %}

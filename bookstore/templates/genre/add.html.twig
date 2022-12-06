@@ -1,0 +1,35 @@
+{# format giao diện thủ công => add từng thông tin trong form #}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-5 text-center mt-3">
+   <div class="card p-3 bg-light">
+      <h3 class="alert alert-primary">Add genre</h3>
+      {{ form_start (genreForm) }}
+      <div class="form-group">
+         <label class="text text-warning h6">Genre Name</label>
+         {{ form_widget(genreForm.name, {
+            'attr' : {
+               'class' : 'form-control',
+               'placeholder' : 'Enter genre name'
+            }
+         }) }}
+      </div>
+      <div class="form-group">
+         <label class="text text-success h6">Genre Image</label>
+         {{
+            form_widget(genreForm.image, {
+               'attr' : {
+                  'class' : 'form-control',
+                  'placeholder' : 'Enter genre image'
+               }
+            })
+         }}
+      </div>
+      <div class="form-group mt-2">
+            <input class="btn btn-outline-danger" type="submit" value="Add">
+      </div>
+      {{ form_end (genreForm) }}
+   </div>
+</div>
+{% endblock %}

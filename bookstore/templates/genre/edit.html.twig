@@ -1,0 +1,21 @@
+{# format giao diện form tự động bằng bootstrap #}
+{% form_theme genreForm 'bootstrap_5_layout.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-4 text-center mt-3">
+   <div class="card p-3 bg-light">
+      <h3 class="alert alert-primary">Edit genre</h3>
+      {# TH1: Nếu đã add nút Submit ở trong form #}
+      {# {{ form (genreForm )}} #}
+
+      {# TH2: Nếu chưa add nút Submit ở trong form #}
+      {{ form_start(genreForm) }}
+         
+      {{ form_widget(genreForm)}}
+      <input class="btn btn-outline-danger" type="submit" value="Edit">
+
+      {{ form_end(genreForm) }}
+   </div>
+</div>
+{% endblock %}

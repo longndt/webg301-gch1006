@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}
+				Online Book Store
+			{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`
+				           and uncomment the following Encore helpers to start using Symfony UX #}
+		{% block stylesheets %}
+			<!-- CSS only -->
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+		{% endblock %}
+
+		{% block javascripts %}
+			<!-- JavaScript Bundle with Popper -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+		{% endblock %}
+	</head>
+	<body>
+		{% block header %}
+			<div
+				class="container col-10 mt-3">
+				{# bs5-nav-ul #}
+				{% if is_granted('ROLE_ADMIN') %}
+					<ul class="nav justify-content-center bg-warning">
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('home')}}">Home</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('book_index')}}">Book</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('author_index')}}">Author</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('genre_index')}}">Genre</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('app_logout')}}">Logout
+								<u>
+									<i>
+										{% if app.user != null %}
+											({{ app.user.username }})
+										{% endif %}
+									</i>
+								</u>
+							</a>
+						</li>
+					</ul>
+				{% else %}
+					<!-- ROLE_CUSTOMER -->
+					<ul class="nav justify-content-center bg-warning">
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('book_list')}}">Store</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" data-bs-toggle="modal" data-bs-target="#modelId">About</a>
+						</li>
+						<li class="nav-item h1">
+							<a class="nav-link text-danger" href="{{ path('app_logout')}}">Logout
+								<u>
+									<i>
+										{% if app.user != null %}
+											({{ app.user.username }})
+										{% endif %}
+									</i>
+								</u>
+							</a>
+						</li>
+					</ul>
+				{% endif %}
+
+			</div>
+			{# bs5-modal-default #}
+
+			<!-- Modal -->
+			<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">About</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="container text-center">
+								<h5 class="text text-primary">Demo web application by Symfony</h5>
+								<h6 class="text text-success">Copyright by Greenwich University (Vietnam)</h6>
+								<img src="https://duhocvinedu.edu.vn/wp-content/uploads/2020/11/university-of-greenwich-diem-den-day-uy-vong-o-nuoc-anh.jpg" width="250" height="200">
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endblock %}
+		{% block flash %}
+			<div class="container col-md-6 text-center mt-3">
+				{% for flash in app.session.flashBag.get('Info') %}
+					<p class="alert alert-info">{{ flash }}</p>
+				{% endfor %}
+				{% for flash in app.session.flashBag.get('Warning') %}
+					<p class="alert alert-danger">{{ flash }}</p>
+				{% endfor %}
+			</div>
+		{% endblock %}
+		{% block body %}{% endblock %}
+
+		{% block footer %}
+			<div class="container col-10 mt-3 text-center">
+				<p class="alert alert-success h5">WEB PROJECT - WEBG301 - SUMMER 2022</p>
+			</div>
+		{% endblock %}
+	</body>
+</html>

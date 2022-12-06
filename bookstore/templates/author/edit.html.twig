@@ -1,0 +1,17 @@
+{# format giao diện form tự động bằng bootstrap #}
+{% form_theme authorForm 'bootstrap_5_layout.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-4 text-center mt-3">
+   <div class="card p-3 bg-light">
+      <h3 class="alert alert-primary">Edit author</h3>
+      {{ form_start(authorForm) }}
+         
+      {{ form_widget(authorForm)}}
+      <input class="btn btn-outline-danger" type="submit" value="Edit">
+
+      {{ form_end(authorForm) }}
+   </div>
+</div>
+{% endblock %}

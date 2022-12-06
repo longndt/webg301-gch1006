@@ -1,0 +1,101 @@
+{# thiết kế giao diện của client theo dạng thẻ  #}
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container mt-3 text-center">
+		<h1 class="text text-danger">
+			Book Store
+		</h1>
+		<div
+			class="row">
+			{# sắp xếp #}
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col">
+						<h5 class="text text-primary">Sort book</h5>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<select class="form-control" onchange="window.location.href=this.value">
+								<option>Select one</option>
+								<option value="{{ path('sort_price_ascending') }}">Price Ascending</option>
+								<option value="{{ path('sort_price_descending') }}">Price Descending</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			{# tìm kiếm #}
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col">
+						<h5 class="text text-primary">Search book</h5>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<form action="{{ path('search_book') }}" method="post">
+								<input class="form-control" type="search" name="keyword" placeholder="Enter book title" required maxlength="10">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if books | length == 0 %}
+			<h1 class="text text-danger mt-4 mb-4">No book found !</h1>
+		{% else %}
+			<p class="text-info h3 mt-3">Total books : {{ books | length }} </p>
+			<div class="card-group">
+				<div class="row">
+					{% for book in books %}
+						{% if books | length < 4 %}
+							<div class="col mt-4">
+							{% else %}
+								{# col-md-3: mỗi hàng hiển thị 4 book  #}
+								<div class="col-md-3 mt-4">
+								{% endif %}
+								<div class="card">
+									<a href="{{ path('book_detail', {'id' : book.id })}}">
+										<img src="{{ asset('images/books/'~book.image) }}" width="150" height="150">
+									</a>
+									<h3 class="text text-success">
+										{{ book.title }}
+									</h3>
+									{% if book.quantity >=1 %}
+										<h5 class="text text-primary">
+											Price:
+											{{ book.price }}
+											$
+										</h5>
+										<h5 class="text text-danger">
+											In-stock:
+											{{ book.quantity }}
+										</h5>
+									</div>
+									<div
+										class="card card-footer mt-1">
+										{# gửi dữ liệu sang action addToCart trong CartController #}
+										<form action="{{ path('add_to_cart')}}" method="post">
+											<input type="hidden" name="bookid" value="{{ book.id }}">
+											<input type="number" name="quantity" min="1" max="{{ book.quantity }}">
+											<br>
+											<input class="btn btn-success mt-3" type="submit" value="Add to cart">
+										</form>
+									{% else %}
+										<h5 class="text text-primary">
+											Price:
+											{{ book.price }}
+											$
+										</h5>
+										<h5 class="text text-danger">
+											Out of stock
+										</h5>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{% set book = app.session.get('book') %}
+{% set user = app.session.get('user') %}
+<div class="container col-md-8 text-center mt-3">
+   <div class="row">
+      <div class="col-md-4">
+         <img class="img-thumbnail" src="{{ book.image }}"
+         width="200" height="200">
+      </div>
+      <div class="col-md-8">
+         <table class="table table-bordered">
+            <tr>
+               <th class="text text-success" colspan="6">Order Detail</th>
+            </tr>
+            <tr>
+               <th>Customer Name</th>
+               <th>Book Title</th>
+               <th>Book Price</th>
+               <th>Order Quantity</th>
+               <th>Total Price</th>
+               <th>Order Date</th>
+            </tr>
+            <tr>
+               <td>{{ user.username }}</td>
+               <td>{{ book.title }}</td>
+               <td>$ {{ book.price }}</td>
+               <td>{{ app.session.get('quantity')  }}</td>
+               <td>$ {{ app.session.get('price') }}</td>
+               <td>{{ app.session.get('datetime') | date('d/m/Y H:i:s') }}</td>
+           </tr>
+            <tr>
+               <th colspan="6">
+                  <a class="btn btn-primary" href="{{ path('make_order') }}"
+                  onclick="return confirm('Are you sure to delete this order ?');";
+                  >Make order</a>
+               </th>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
+{% endblock %}

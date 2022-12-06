@@ -1,0 +1,17 @@
+{# format giao diện form tự động bằng bootstrap #}
+{% form_theme bookForm 'bootstrap_5_layout.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-8 text-center mt-3">
+   <div class="card p-3 bg-light">
+      <h3 class="alert alert-primary">Add book</h3>
+      {{ form_start(bookForm) }}
+         
+      {{ form_widget(bookForm)}}
+      <input class="btn btn-outline-danger" type="submit" value="Add">
+
+      {{ form_end(bookForm) }}
+   </div>
+</div>
+{% endblock %}
