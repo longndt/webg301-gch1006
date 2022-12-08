@@ -70,6 +70,7 @@ class BookController extends AbstractController
     return $this->redirectToRoute('book_index');
   }
 
+  #[IsGranted('ROLE_ADMIN')]
   #[Route('/add', name: 'book_add')]
   public function bookAdd (Request $request) {
     $book = new Book;
