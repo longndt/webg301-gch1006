@@ -24,6 +24,9 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //set default role as "ROLE_CUSTOMER"
+            $user->setRoles(["ROLE_CUSTOMER"]);
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

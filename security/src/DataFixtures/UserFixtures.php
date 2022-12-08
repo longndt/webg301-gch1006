@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
         $user1->setPassword($this->hasher->hashPassword($user1, "123456"));
         $manager->persist($user1);
 
-        //tạo tài khoản demo cho role User (default role)
+        //tạo tài khoản demo cho role User  
         $user2 = new User;
         $user2->setUsername('user');
         $user2->setRoles(["ROLE_USER"]);
