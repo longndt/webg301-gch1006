@@ -18,7 +18,7 @@ class BookFixtures extends Fixture
             $book->setTitle($titles[$key])
                  ->setQuantity(rand(10,100)) 
                  ->setPrice((float)(rand(100,1000))) 
-                 ->setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwR_qwwP-PgM2uGa5crh8YvIhpV_yc7LNXA&usqp=CAU")
+                 ->setImage("book.jpg")
                  ->setDate(\DateTime::createFromFormat('Y/m/d','2022/05/25'));
             $manager->persist($book);     
         }
